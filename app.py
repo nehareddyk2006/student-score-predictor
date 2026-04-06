@@ -1,56 +1,51 @@
 import streamlit as st
 import joblib
-import os
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Student Predictor", layout="centered")
 
-# ---------------- FORCE STYLING ----------------
-st.markdown("""
-<style>
+# ---------------- STYLE FUNCTION ----------------
+def apply_styles():
+    st.markdown("""
+    <style>
 
-/* Background fix */
-html, body, [data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #f5f7fa, #e4e8f0) !important;
-}
+    html, body, [data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #f5f7fa, #e4e8f0) !important;
+    }
 
-/* Titles */
-h1, h2, h3 {
-    color: #2c3e50 !important;
-    text-align: center;
-}
+    h1, h2, h3 {
+        color: #2c3e50 !important;
+        text-align: center;
+    }
 
-/* Labels */
-label {
-    color: #34495e !important;
-}
+    label {
+        color: #34495e !important;
+    }
 
-/* Inputs */
-.stNumberInput, .stSlider {
-    background: white !important;
-    border-radius: 10px;
-    padding: 8px;
-    border: 1px solid #ddd;
-}
+    .stNumberInput, .stSlider {
+        background: white !important;
+        border-radius: 10px;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
 
-/* Button */
-.stButton>button {
-    background: linear-gradient(to right, #4facfe, #00c6ff) !important;
-    color: white !important;
-    border-radius: 10px;
-    font-weight: bold;
-    height: 3em;
-    width: 100%;
-    transition: 0.3s;
-}
+    .stButton>button {
+        background: linear-gradient(to right, #4facfe, #00c6ff) !important;
+        color: white !important;
+        border-radius: 10px;
+        font-weight: bold;
+        height: 3em;
+        width: 100%;
+        transition: 0.3s;
+    }
 
-.stButton>button:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 8px 18px rgba(0,0,0,0.1);
-}
+    .stButton>button:hover {
+        transform: scale(1.03);
+        box-shadow: 0px 8px 18px rgba(0,0,0,0.1);
+    }
 
-</style>
-""", unsafe_allow_html=True)
+    </style>
+    """, unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("model.pkl")
@@ -61,6 +56,7 @@ if "page" not in st.session_state:
 
 # ---------------- PAGE 1 ----------------
 if st.session_state.page == "input":
+    apply_styles()
 
     st.title("📊 Student Performance Predictor")
     st.markdown("### Smart AI-based score prediction system")
@@ -90,6 +86,7 @@ if st.session_state.page == "input":
 
 # ---------------- PAGE 2 ----------------
 elif st.session_state.page == "result":
+    apply_styles()
 
     st.title("🎯 Your Predicted Score")
 
@@ -108,14 +105,15 @@ elif st.session_state.page == "result":
 
     final_score = min(final_score, 100)
 
-    st.progress(int(final_score))
+    # SAFE display (no progress bar bug)
+    st.markdown(f"### 📊 Score: {round(final_score,2)}")
 
     if final_score < 50:
-        st.error(f"Score: {round(final_score,2)} 😬 Needs improvement")
+        st.error("😬 Needs improvement")
     elif final_score < 75:
-        st.warning(f"Score: {round(final_score,2)} 🙂 You're getting there")
+        st.warning("🙂 You're getting there")
     else:
-        st.success(f"Score: {round(final_score,2)} 🔥 Excellent!")
+        st.success("🔥 Excellent!")
 
     if st.button("View Improvement Tips 📈"):
         st.session_state.score = final_score
@@ -124,11 +122,11 @@ elif st.session_state.page == "result":
 
 # ---------------- PAGE 3 ----------------
 elif st.session_state.page == "improve":
-
-    st.title("📈 Improve Your Score")
+    apply_styles()
 
     score = st.session_state.score
 
+    st.title("📈 Improve Your Score")
     st.write(f"Your current predicted score: **{round(score,2)}**")
 
     st.subheader("💡 Suggestions")
