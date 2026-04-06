@@ -21,8 +21,9 @@ def apply_styles():
     }
 
     /* Labels */
-    label {
+    label, p {
         color: #34495e !important;
+        font-size: 16px;
     }
 
     /* Inputs */
@@ -49,7 +50,7 @@ def apply_styles():
         box-shadow: 0px 8px 18px rgba(0,0,0,0.1);
     }
 
-    /* ALERT BOX FIX */
+    /* ALERT FIX */
     div[data-testid="stAlert"] {
         color: #2c3e50 !important;
         font-weight: 500;
@@ -68,21 +69,6 @@ def apply_styles():
     div[data-testid="stAlert"][kind="error"] {
         background-color: #f8d7da !important;
         color: #721c24 !important;
-    }
-
-    /* CHECKBOX FIX */
-    div[data-testid="stCheckbox"] label {
-        color: #2c3e50 !important;
-        font-weight: 500;
-    }
-
-    div[data-testid="stCheckbox"] > div {
-        background-color: white !important;
-        border-radius: 6px;
-    }
-
-    div[data-testid="stCheckbox"] {
-        margin-bottom: 10px;
     }
 
     </style>
@@ -180,10 +166,11 @@ elif st.session_state.page == "improve":
 
     st.markdown("### 🔧 Action Tracker")
 
-    st.checkbox("📚 Study 2+ more hours daily")
-    st.checkbox("😴 Maintain 7–8 hours sleep")
-    st.checkbox("🧘 Reduce stress (meditation/exercise)")
-    st.checkbox("📵 Avoid distractions for better focus")
+    # 🔥 CUSTOM TOGGLES (no more checkbox bugs)
+    st.toggle("📚 Study 2+ more hours daily")
+    st.toggle("😴 Maintain 7–8 hours sleep")
+    st.toggle("🧘 Reduce stress (meditation/exercise)")
+    st.toggle("📵 Avoid distractions for better focus")
 
     if st.button("🔙 Back to Home"):
         st.session_state.page = "input"
