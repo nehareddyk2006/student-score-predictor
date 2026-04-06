@@ -1,32 +1,33 @@
 import streamlit as st
 import joblib
+import os
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Student Predictor", layout="centered")
 
-# ---------------- STYLING ----------------
+# ---------------- FORCE STYLING ----------------
 st.markdown("""
 <style>
 
-/* Background */
-.stApp {
-    background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+/* Background fix */
+html, body, [data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #f5f7fa, #e4e8f0) !important;
 }
 
 /* Titles */
 h1, h2, h3 {
-    color: #2c3e50;
+    color: #2c3e50 !important;
     text-align: center;
 }
 
-/* Text */
-label, .stMarkdown {
+/* Labels */
+label {
     color: #34495e !important;
 }
 
 /* Inputs */
 .stNumberInput, .stSlider {
-    background: white;
+    background: white !important;
     border-radius: 10px;
     padding: 8px;
     border: 1px solid #ddd;
@@ -34,8 +35,8 @@ label, .stMarkdown {
 
 /* Button */
 .stButton>button {
-    background: linear-gradient(to right, #4facfe, #00c6ff);
-    color: white;
+    background: linear-gradient(to right, #4facfe, #00c6ff) !important;
+    color: white !important;
     border-radius: 10px;
     font-weight: bold;
     height: 3em;
