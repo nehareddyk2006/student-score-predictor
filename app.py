@@ -9,19 +9,23 @@ def apply_styles():
     st.markdown("""
     <style>
 
+    /* Background */
     html, body, [data-testid="stAppViewContainer"] {
         background: linear-gradient(135deg, #f5f7fa, #e4e8f0) !important;
     }
 
+    /* Titles */
     h1, h2, h3 {
         color: #2c3e50 !important;
         text-align: center;
     }
 
+    /* Labels */
     label {
         color: #34495e !important;
     }
 
+    /* Inputs */
     .stNumberInput, .stSlider {
         background: white !important;
         border-radius: 10px;
@@ -29,6 +33,7 @@ def apply_styles():
         border: 1px solid #ddd;
     }
 
+    /* Button */
     .stButton>button {
         background: linear-gradient(to right, #4facfe, #00c6ff) !important;
         color: white !important;
@@ -42,6 +47,42 @@ def apply_styles():
     .stButton>button:hover {
         transform: scale(1.03);
         box-shadow: 0px 8px 18px rgba(0,0,0,0.1);
+    }
+
+    /* ALERT BOX FIX */
+    div[data-testid="stAlert"] {
+        color: #2c3e50 !important;
+        font-weight: 500;
+    }
+
+    div[data-testid="stAlert"][kind="success"] {
+        background-color: #d4edda !important;
+        color: #155724 !important;
+    }
+
+    div[data-testid="stAlert"][kind="warning"] {
+        background-color: #fff3cd !important;
+        color: #856404 !important;
+    }
+
+    div[data-testid="stAlert"][kind="error"] {
+        background-color: #f8d7da !important;
+        color: #721c24 !important;
+    }
+
+    /* CHECKBOX FIX */
+    div[data-testid="stCheckbox"] label {
+        color: #2c3e50 !important;
+        font-weight: 500;
+    }
+
+    div[data-testid="stCheckbox"] > div {
+        background-color: white !important;
+        border-radius: 6px;
+    }
+
+    div[data-testid="stCheckbox"] {
+        margin-bottom: 10px;
     }
 
     </style>
@@ -105,7 +146,6 @@ elif st.session_state.page == "result":
 
     final_score = min(final_score, 100)
 
-    # SAFE display (no progress bar bug)
     st.markdown(f"### 📊 Score: {round(final_score,2)}")
 
     if final_score < 50:
